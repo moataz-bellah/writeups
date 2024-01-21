@@ -65,7 +65,7 @@ After running the scripts we have the username: "elliot" and password: "ER28-065
 ![dashboard](https://github.com/moataz-bellah/writeups/assets/47069499/cf3bfb4c-a19f-46e6-bd63-86ac486f31cd)
 I was exploring the dashboard trying to find anything useful but i didn't. So i did some research about ideas to get reverse shell in wordpress
 and i found that great resourse https://www.hackingarticles.in/wordpress-reverse-shell/
-According to the above link i went to appearance, then editor.
+According to that link i went to appearance, then editor.
 ![reverse_shell2](https://github.com/moataz-bellah/writeups/assets/47069499/a02ef163-13f2-4bfd-b7a7-3beed04d069f)
 1: I looked for a php reverse shell online, and i put it inside the editor
 
