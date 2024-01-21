@@ -68,9 +68,13 @@ and i found that great resourse https://www.hackingarticles.in/wordpress-reverse
 According to the above link i went to appearance, then editor.
 ![reverse_shell2](https://github.com/moataz-bellah/writeups/assets/47069499/a02ef163-13f2-4bfd-b7a7-3beed04d069f)
 1: I looked for a php reverse shell online, and i put it inside the editor
-2: Changed templates to 404 Template
+
+2: Changed templates to 404 Template  
+
 ![reverse_shell](https://github.com/moataz-bellah/writeups/assets/47069499/20358daa-4e05-4470-85dd-b509e78c95ed)
-3: Update File
+
+3: Update File  
+
 To get reverse shell we need to visit http://192.168.0.105/wp-content/themes/twentyfifteen/404.php. But before that we need to
 listen to any incoming connection
 ```
