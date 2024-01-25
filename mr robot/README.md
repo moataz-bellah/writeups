@@ -1,4 +1,6 @@
 # My writeup for MR. ROBOT machine
+Machine link: https://www.vulnhub.com/entry/mr-robot-1,151/
+
 Let's get started with nmap scan. I found three ports open for ssh, http, https
 
 ![nmap](https://github.com/moataz-bellah/writeups/assets/47069499/12744873-28e5-4421-a54b-483987e7d9db)
