@@ -12,7 +12,7 @@ Great it does provide anonymous login. We have an interesting file "note.txt". C
 
 ![note](https://github.com/moataz-bellah/writeups/assets/47069499/9cd0569b-37eb-432e-b655-0ac8f41ad4d2)
 
-It has inssert query, ok we have good findings like user_id and password hash. Crack the hash using online website like LINK.  
+It has inssert query, ok we have good findings like user_id and password hash. Crack the hash using online website like [LINK](https://crackstation.net/).  
 Yes we cracked the hash and it is "student", but how we can use that credential. Let's do some directory busting using ffuf. Why ffuf, because ffuf doesn't search inside any directory.
 ```
 ffuf -u http://192.168.0.105/FUZZ  -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt:FUZZ
@@ -31,7 +31,7 @@ Great we are in, ok we are looking for a way to get a shell, there is file uploa
 
 ![upload](https://github.com/moataz-bellah/writeups/assets/47069499/df76ce66-4371-4833-aa28-ce93c7b111b9)
 
-As we saw it is a php app we can use php reverse shell. Before we upload the shell we need to set netcat to listen to any incoming connections.
+As we saw it is a php app we can use php reverse shell from https://github.com/pentestmonkey/php-reverse-shell. Before we upload the shell we need to set netcat to listen to any incoming connections.
 ```
 sudo nc -nvlp 1234
 ```
