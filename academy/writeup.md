@@ -1,12 +1,15 @@
 # Academy machine writeup
 
 Starting with nmap scan we have three ports open 21 22 80 for ftp ssh http
+
 ![nmap](https://github.com/moataz-bellah/writeups/assets/47069499/76c63fa9-0903-4491-b0b6-0b3967847799)
 
 let's enumerate ftp. Let's see if it provides anonymous login
+
 ![ftp](https://github.com/moataz-bellah/writeups/assets/47069499/8d375b8c-4015-4b4e-8807-f9d375e91ea0)
 
 Great it does provide anonymous login. We have an interesting file "note.txt". Check that file
+
 ![note](https://github.com/moataz-bellah/writeups/assets/47069499/9cd0569b-37eb-432e-b655-0ac8f41ad4d2)
 
 It has inssert query, ok we have good findings like user_id and password hash. Crack the hash using online website like LINK.  
@@ -21,9 +24,11 @@ ffuf -u http://192.168.0.105/FUZZ  -w /usr/share/wordlists/dirbuster/directory-l
 
 ```
 We found two paths /academy and /phpmyadmin. Let's try the credential we found in phpmyadmin, but it didn't work and it seems to be not vulnerable to sql injection, let's go to /academy. 
+
 ![dashboard](https://github.com/moataz-bellah/writeups/assets/47069499/6a8fda7f-287b-4de8-ae98-c516ae16f97b)
 
 Great we are in, ok we are looking for a way to get a shell, there is file upload we can check it if it is vulnerable to RFI.
+
 ![upload](https://github.com/moataz-bellah/writeups/assets/47069499/df76ce66-4371-4833-aa28-ce93c7b111b9)
 
 As we saw it is a php app we can use php reverse shell. Before we upload the shell we need to set netcat to listen to any incoming connections.
@@ -31,6 +36,7 @@ As we saw it is a php app we can use php reverse shell. Before we upload the she
 sudo nc -nvlp 1234
 ```
 Upload the file
+
 ![netcat](https://github.com/moataz-bellah/writeups/assets/47069499/59faf962-7311-4dfb-a177-3da285d1e0a8)
 
 Boom we have access, go to home
@@ -111,5 +117,7 @@ Let's set netcat to listen on port 4444 and wait for any connection
 ```
 sudo nc -nvlp 4444
 ```
+
 ![root_shell](https://github.com/moataz-bellah/writeups/assets/47069499/fa475814-fe12-4614-aa8a-0afe54bcf2e4)
+
 Yeah we are root now.
