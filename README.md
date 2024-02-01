@@ -1,2 +1,2 @@
 # writeups
-writeups of the machines i solved
+Writeups for CTF machines
