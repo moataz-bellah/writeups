@@ -1,8 +1,11 @@
 # Dev machine writeup
+This is a machine from tcm security, especially practical penetration testing course
+
 Starting with nmap scan
 ```
 sudo nmap 192.168.0.106 -T4 -A -p-
 ```
+This is not the best way to implement a scan in real life scenario, Since we are doing CTF, it is okay
 
 ![nmap_scan](https://github.com/moataz-bellah/writeups/assets/47069499/0a26779d-dac7-43d4-a7c5-bab4a06393a1)
 
