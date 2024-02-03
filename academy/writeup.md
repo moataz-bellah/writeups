@@ -1,6 +1,8 @@
 # Academy machine writeup
+This is a machine from tcm security, especially practical penetration testing course
 
-Starting with nmap scan we have three ports open 21 22 80 for ftp ssh http
+Starting with nmap scan we have three ports open 21 22 80 for ftp ssh http.
+Note, this is not the best way to implement a scan in real life scenario. Since we are doing CTF, it is okay
 
 ![nmap](https://github.com/moataz-bellah/writeups/assets/47069499/76c63fa9-0903-4491-b0b6-0b3967847799)
 
