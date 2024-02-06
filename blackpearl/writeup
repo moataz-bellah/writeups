@@ -72,6 +72,12 @@ This command will search in all files and dirs inside navigate folder except fil
 
 ## SCREENSHOT
 
+We have a lot of duplicates. we can filter tham by adding a small part.
+
+```
+grep  -r 'password*' navigate/*  --exclude='*.css' --exclude='*.js' --exclude-dir='lib' --exclude-dir='js' | cut -d: -f1 | sort | uniq
+```
+
 We have a lot of files that have 'password' inside. Exploring them, i found that navigate/cfg/globals.php has mysql credentials.
 
 ```
