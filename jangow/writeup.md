@@ -42,7 +42,7 @@ We have mysql credentials. I tried use it with ftp, but it didn't work. At least
 http://192.168.0.105/site/busque.php?buscar=cat+/etc/passwd
 ```
 
-
+![passwd](https://github.com/moataz-bellah/writeups/assets/47069499/8d1f975d-3949-4a26-a3b4-07ec1f348d89)
 
 
 I found "jangow01". Let's go login to ftp with username: "jangow01" password: "abygurl69". Great it worked. I tried to upload a php shell,but it is now allowed to upload any files in /var/www.
@@ -72,6 +72,9 @@ chmod +x PwnKit
 ```
 ./PwnKit
 ```
+
+![root](https://github.com/moataz-bellah/writeups/assets/47069499/455be079-8ee2-4410-92ce-910dad611cbe)
+
 Great we root now
 
 
